@@ -2,22 +2,13 @@ import './css/styles.css';
 import Notiflix from 'notiflix';
 import debounce from 'lodash.debounce';
 
+import { fetchCountries } from './fetchCountries';
+
 const DEBOUNCE_DELAY = 300;
-const BASE_URL = 'https://restcountries.com/v3.1';
+
 const searchForm = document.querySelector('#search-box');
 const countriesList = document.querySelector('.country-list');
 const countriesInfo = document.querySelector('.country-info');
-
-function fetchCountries(name) {
-  return fetch(
-    `${BASE_URL}/name/${name}?fields=name,capital,population,flags,languages`
-  ).then(response => {
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return response.json();
-  });
-}
 
 searchForm.addEventListener('input', debounce(search, DEBOUNCE_DELAY));
 
